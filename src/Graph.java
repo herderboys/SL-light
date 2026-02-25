@@ -34,4 +34,8 @@ public class Graph {
     public boolean nodeExists(Node node) {
         return node != null;
     }
+
+    public int getSize() {
+        return nodes.size();
+    }
 }
