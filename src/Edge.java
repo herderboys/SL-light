@@ -1,12 +1,14 @@
 import java.util.Objects;
 
 public class Edge {
+    private final Node origin;
     private final Node destination;
     private final String trip_id;
     private final int departure_time; // represented in seconds
     private final int arrival_time; // also represented in seconds
 
-    public Edge(Node destination, String trip_id, String departure_time_string, String arrival_time_string) {
+    public Edge(Node origin, Node destination, String trip_id, String departure_time_string, String arrival_time_string) {
+        this.origin = Objects.requireNonNull(origin);
         this.destination = Objects.requireNonNull(destination);
         this.trip_id = Objects.requireNonNull(trip_id);
 
@@ -28,7 +30,31 @@ public class Edge {
         return destination;
     }
 
-    private int timeToSeconds(String time) {
+    public String getDestinationName() {
+        return destination.getName();
+    }
+
+    public Node getOrigin() {
+        return origin;
+    }
+
+    public String getOriginName() {
+        return origin.getName();
+    }
+
+    public int getDepartureTime() {
+        return departure_time;
+    }
+
+    public int getArrivalTime() {
+        return arrival_time;
+    }
+
+    public String getTripId() {
+        return trip_id;
+    }
+
+    public static int timeToSeconds(String time) {
         int ret = 0;
         String[] times = time.split(":");
          ret +=

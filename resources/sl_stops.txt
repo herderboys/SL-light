@@ -7,7 +7,7 @@ stop_id,stop_name,stop_lat,stop_lon,location_type
 740001181,Nockeby Spårv,59.328641,17.918706,null
 740001541,Stockholm Citytermin Kungsbron,59.333196,18.054315,null
 740004046,Liljeholmen T-bana,59.310706,18.023130,null
-740004383,Stockholm C Klarabergsviadukte,59.331105,18.058377,null
+740004383,Stockholm C Klarabergsviadukten,59.331105,18.058377,null
 740010232,Danderyds sjukhus T-bana,59.391904,18.041372,null
 740010947,Stockholm Nationalmuseum,59.328314,18.077452,null
 740011060,Drevergatan,59.358526,18.091642,null

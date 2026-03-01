@@ -26,13 +26,21 @@ public class Graph {
             return;
         }
 
-        Edge edge = new Edge(toNode, trip_id, departure_time_string, arrival_time_string);
+        Edge edge = new Edge(fromNode, toNode, trip_id, departure_time_string, arrival_time_string);
         fromNode.addEdge(edge);
     }
 
 
     public boolean nodeExists(Node node) {
         return node != null;
+    }
+
+    public Node getNode(String stopId) {
+        return nodes.get(stopId);
+    }
+
+    public String getStopName(String stopId) {
+        return nodes.get(stopId).getName();
     }
 
     public int getSize() {

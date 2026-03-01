@@ -2,7 +2,11 @@ import java.io.*;
 import java.util.Objects;
 
 public class GraphLoader {
+
+    private double maxSpeed;
+
     public GraphLoader(Graph graph, File stopsFile, File stopTimesFile) {
+        maxSpeed = 0;
         load(graph, stopsFile, stopTimesFile);
     }
 
@@ -45,7 +49,6 @@ public class GraphLoader {
             String currentDepartureTime;
             // stop id already defined
 
-
             while ((line = timesReader.readLine()) != null) {
                 String[] split = line.split(",");
 
@@ -56,14 +59,39 @@ public class GraphLoader {
 
                 if (Objects.equals(currentTripId, previousTripId)) {
                     graph.connect(currentStopId, previousStopId, currentTripId, previousDepartureTime, currentArrivalTime);
+
+                    /* calculate max speed of an edge for using as base for heuristic in A* algorithm.
+                     could separate this to a different class, but this would increase the workload,
+                     so might as well do it here */
+                    int timeElapsed = Edge.timeToSeconds(currentArrivalTime) - Edge.timeToSeconds(previousDepartureTime);
+
+                    if (timeElapsed > 0) {
+                        double dx = graph.getNode(currentStopId).getX() - graph.getNode(previousStopId).getX();
+                        double dy = graph.getNode(currentStopId).getY() - graph.getNode(previousStopId).getY();
+
+                        double hypotenuse = Math.sqrt((dx * dx) + (dy * dy));
+
+                        // calculating speed
+                        double currentSpeed = hypotenuse / timeElapsed;
+
+                        if (currentSpeed > maxSpeed) {
+                            maxSpeed = currentSpeed;
+                        }
+                    }
                 }
                 previousTripId = currentTripId;
                 previousDepartureTime = currentDepartureTime;
                 previousStopId = currentStopId;
             }
+            timesReader.close();
+
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public double getMaxSpeed() {
+        return maxSpeed;
     }
 }
