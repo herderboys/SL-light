@@ -73,30 +73,28 @@ public class RouteFinder {
             Edge e = step.getIncomingEdge();
 
             if (currentTripId == null) {
-                // First step of the journey
+                // first step of the journey
                 currentTripId = e.getTripId();
                 boardingStop = e.getOriginName();
                 boardingTime = formatSeconds(e.getDepartureTime());
             } else if (!e.getTripId().equals(currentTripId)) {
-                // We are transferring! Print the leg we just finished.
-                System.out.println("Board Trip " + currentTripId + " at " + boardingStop +
+                // we are transferring, print the leg we just finished
+                System.out.println("Board at " + boardingStop +
                         " [" + boardingTime + "] -> Arrive at " +
                         arrivalStop + " [" + arrivalTime + "]");
 
-                // Reset trackers for the new trip
+                // reset trackers for the new trip
                 currentTripId = e.getTripId();
                 boardingStop = e.getOriginName();
                 boardingTime = formatSeconds(e.getDepartureTime());
             }
-
-            // Always update the arrival trackers so we know where we eventually stop
             arrivalStop = step.getCurrentNode().getName();
             arrivalTime = formatSeconds(e.getArrivalTime());
         }
 
-        // Print the final leg of the journey once the loop finishes
+        // print final part of journey once the loop finishes
         if (currentTripId != null) {
-            System.out.println("Board Trip " + currentTripId + " at " + boardingStop +
+            System.out.println("Board at " + boardingStop +
                     " [" + boardingTime + "] -> Arrive at " +
                     arrivalStop + " [" + arrivalTime + "]");
         }

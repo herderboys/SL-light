@@ -20,7 +20,7 @@ public class Edge {
 
     public int getWeight(int current_time_in_seconds) {
         if (current_time_in_seconds > departure_time) {
-            return Integer.MAX_VALUE; // you've missed departure
+            return Integer.MAX_VALUE; // you've missed departure, make node invalid
         }
 
         return arrival_time - current_time_in_seconds;
